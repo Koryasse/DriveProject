@@ -35,7 +35,7 @@ function Drive() {
       setLoading(true);
       setError(null);
 
-      const res = await fetch("http://127.0.0.1:8000/api/files");
+      const res = await fetch("http://10.5.40.95:8000/api/files");
 
       if (!res.ok) throw new Error("Unable to fetch files");
 
@@ -84,7 +84,7 @@ function Drive() {
       const formData = new FormData();
       formData.append("file", uploadedFiles[i]);
 
-      await fetch("http://127.0.0.1:8000/api/upload", {
+      await fetch("http://10.5.40.95:8000/api/upload", {
         method: "POST",
         body: formData
       });
@@ -100,7 +100,7 @@ function Drive() {
     if (!modal.file) return;
 
     await fetch(
-      `http://127.0.0.1:8000/api/files/${modal.file.name}`,
+      `http://10.5.40.95:8000/api/files/${modal.file.name}`,
       { method: "DELETE" }
     );
 
@@ -124,7 +124,7 @@ function Drive() {
     const newName = modal.value + ext;
 
     await fetch(
-      `http://127.0.0.1:8000/api/files/rename?old_name=${originalName}&new_name=${newName}`,
+      `http://10.5.40.95:8000/api/files/rename?old_name=${originalName}&new_name=${newName}`,
       { method: "PUT" }
     );
 
@@ -138,7 +138,7 @@ function Drive() {
   const handleDownload = (file) => {
 
     window.open(
-      `http://127.0.0.1:8000/api/files/download/${file.name}`,
+      `http://10.5.40.95:8000/api/files/download/${file.name}`,
       "_blank"
     );
   };
