@@ -69,3 +69,21 @@ def download_file(filename: str):
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
     return FileResponse(file_path, filename=filename)
+
+# ----------------- Stockage -----------------
+@app.get("/api/storage")
+def get_storage():
+    total_storage = 10 * 1024 ** 3  # 10 Go en octets
+    used_bytes = sum(
+        os.path.getsize(os.path.join(STORAGE_FOLDER, f))
+        for f in os.listdir(STORAGE_FOLDER)
+    )
+    used_gb = used_bytes / (1024 ** 3)
+    total_gb = total_storage / (1024 ** 3)
+    percent = (used_bytes / total_storage) * 100
+
+    return {
+        "used_gb": round(used_gb, 2),
+        "total_gb": total_gb,
+        "percent": round(percent, 2)
+    }
