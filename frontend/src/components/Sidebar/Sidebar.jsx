@@ -8,26 +8,6 @@ import Logo from '../../assets/img/nebulaLogo/nebulaBlack.svg';
 
 function Sidebar({ openFilePicker, fileInputRef, handleUpload, storage }) {
 
-  const [storage, setStorage] = useState({
-    used_gb: 0,
-    total_gb: 10,
-    percent: 0
-  });
-
-  const fetchStorage = async () => {
-    try {
-      const res = await fetch("http://10.5.40.95:8000/api/storage");
-      const data = await res.json();
-      onStorageUpdate(data);
-    } catch (err) {
-      console.error("Erreur storage:", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchStorage();
-  }, []);
-
   return (
     <aside className="sidebar">
 
