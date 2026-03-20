@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import NewIcon from '../../assets/img/icons/new.svg';
 import HomeIcon from '../../assets/img/icons/home.svg';
@@ -8,11 +8,25 @@ import Logo from '../../assets/img/nebulaLogo/nebulaBlack.svg';
 
 function Sidebar({ openFilePicker, fileInputRef, handleUpload }) {
 
-  // Exemple temporaire
-  const usedStorage = 2.05;
-  const totalStorage = 10;
+  const [storage, setStorage] = useState({
+    used_gb: 0,
+    total_gb: 10,
+    percent: 0
+  });
 
-  const percent = (usedStorage / totalStorage) * 100;
+  const fetchStorage = async () => {
+    try {
+      const res = await fetch("http://10.5.40.95:8000/api/storage");
+      const data = await res.json();
+      setStorage(data);
+    } catch (err) {
+      console.error("Erreur storage:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStorage();
+  }, []);
 
   return (
     <aside className="sidebar">
@@ -50,27 +64,21 @@ function Sidebar({ openFilePicker, fileInputRef, handleUpload }) {
       </nav>
 
       <div className="sidebar-footer">
-
         <div className="storage-box">
-
           <div className="storage-header">
             <img src={CloudIcon} alt="cloud" />
             <span>Espace de stockage</span>
           </div>
-
           <div className="storage-bar">
             <div
               className="storage-progress"
-              style={{ width: `${percent}%` }}
+              style={{ width: `${storage.percent}%` }}
             ></div>
           </div>
-
           <p className="storage-text">
-            {usedStorage.toFixed(2).replace('.', ',')} Go utilisé(s) sur {totalStorage} Go
+            {storage.used_gb.toFixed(2).replace('.', ',')} Go utilisé(s) sur {storage.total_gb} Go
           </p>
-
         </div>
-
       </div>
 
     </aside>
