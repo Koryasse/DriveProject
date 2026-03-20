@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="24" width="24" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <path d="M0,0h24v24H0V0z" fill="none"/>
+  </g>
+  <g>
+    <polygon points="12,3 4,9 4,21 10,21 10,14 14,14 14,21 20,21 20,9"/>
+  </g>
+</svg>

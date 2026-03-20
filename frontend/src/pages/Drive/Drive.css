@@ -1,0 +1,324 @@
+@font-face {
+  font-family: 'googleSans';
+  src: url('../../assets/font/googleSans/GoogleSans_17pt-Regular.ttf');
+}
+
+/* ===== LAYOUT ===== */
+
+.drive-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.drive-content {
+  flex: 1;
+  padding: 2rem 3rem;
+  font-family: 'googleSans';
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+
+.drive-header {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 2rem;
+}
+
+.drive-header h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* ===== SEARCH ===== */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: .4rem 1rem;
+
+  width: 100%;
+  max-width: 700px;
+}
+
+.search-bar img {
+  width: 18px;
+  margin-right: .5rem;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: .6rem;
+  font-size: .95rem;
+  min-width: 0;
+}
+
+/* ===== FILTERS ===== */
+
+.drive-filters {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-box {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: .4rem .8rem;
+}
+
+.filter-box select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: .9rem;
+}
+
+/* ===== TABLE DESKTOP ===== */
+
+.drive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.drive-table th,
+.drive-table td {
+  padding: .9rem 1rem;
+  text-align: left;
+}
+
+.drive-table th {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.drive-table td {
+  border-top: 1px solid #eee;
+}
+
+.file-name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.file-name img {
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.file-name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== ACTIONS ===== */
+
+.drive-actions {
+  white-space: nowrap;
+}
+
+.drive-actions img {
+  width: 37px;
+  margin-right: .6rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.drive-actions img:hover {
+  background: #e9eefc;
+}
+
+/* ===== PAGINATION ===== */
+
+.drive-pagination {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.drive-pagination button {
+  padding: .8rem 1.4rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #2563eb;
+  font-size: .9rem;
+}
+
+.drive-pagination button:hover {
+  background: #e9eefc;
+}
+/* ===== MODAL ===== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 14px;
+
+  min-width: 330px;
+  max-width: 400px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  animation: modalPop 0.2s ease;
+}
+
+.modal-content p {
+  margin-bottom: 1rem;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: .6rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: .6rem;
+}
+
+.modal-buttons button {
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
+
+.modal-buttons .rename {
+  background: #2563eb;
+  color: white;
+}
+
+.modal-buttons .danger {
+  background: #ef4444;
+  color: white;
+}
+
+@keyframes modalPop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ================= RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .drive-content {
+    padding: 2rem;
+  }
+
+  .drive-header {
+    max-width: 100%;
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .drive-layout {
+    flex-direction: column;
+  }
+
+  .drive-content {
+    padding: 1.5rem;
+  }
+
+  .drive-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .drive-table thead {
+    display: none;
+  }
+
+  .drive-table,
+  .drive-table tbody,
+  .drive-table tr,
+  .drive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .drive-table tr {
+    background: #f9fafb;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .drive-table td {
+    border: none;
+    padding: .4rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: .9rem;
+  }
+
+  .drive-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+  }
+
+  .file-name {
+    justify-content: flex-start;
+  }
+
+  .drive-actions {
+    justify-content: flex-start;
+    margin-top: .5rem;
+  }
+}
