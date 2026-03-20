@@ -28,6 +28,22 @@ function Drive() {
   const fileInputRef = useRef(null);
   const tableRef = useRef(null);
 
+  const [storage, setStorage] = useState({ used_gb: 0, total_gb: 10, percent: 0 });
+
+  const fetchStorage = async () => {
+    try {
+      const res = await fetch("http://10.5.40.95:8000/api/storage");
+      const data = await res.json();
+      setStorage(data);
+    } catch (err) {
+      console.error("Erreur storage:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStorage();
+  }, []);
+
   // ---------------- FETCH FILES ----------------
 
   const fetchFiles = async () => {
@@ -90,6 +106,7 @@ function Drive() {
       });
     }
 
+    fetchStorage();
     fetchFiles();
   };
 
@@ -106,6 +123,7 @@ function Drive() {
 
     setModal({ type: null, file: null, value: '' });
 
+    fetchStorage();
     fetchFiles();
   };
 
@@ -187,7 +205,7 @@ function Drive() {
   return (
 
     <div className="drive-layout">
-      <Sidebar openFilePicker={openFilePicker} fileInputRef={fileInputRef} handleUpload={handleUpload} onStorageUpdate={fetchStorageRef}/>
+      <Sidebar openFilePicker={openFilePicker} fileInputRef={fileInputRef} handleUpload={handleUpload} storage={storage}/>
       <main className="drive-content">
         {/* ---------------- HEADER ---------------- */}
         <header className="drive-header">

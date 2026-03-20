@@ -6,7 +6,7 @@ import ProfileIcon from '../../assets/img/icons/profile.svg';
 import CloudIcon from '../../assets/img/icons/cloud.svg';
 import Logo from '../../assets/img/nebulaLogo/nebulaBlack.svg';
 
-function Sidebar({ openFilePicker, fileInputRef, handleUpload }) {
+function Sidebar({ openFilePicker, fileInputRef, handleUpload, storage }) {
 
   const [storage, setStorage] = useState({
     used_gb: 0,
