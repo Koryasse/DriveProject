@@ -187,7 +187,7 @@ function Drive() {
   return (
 
     <div className="drive-layout">
-      <Sidebar openFilePicker={openFilePicker} fileInputRef={fileInputRef} handleUpload={handleUpload} />
+      <Sidebar openFilePicker={openFilePicker} fileInputRef={fileInputRef} handleUpload={handleUpload} onStorageUpdate={fetchStorageRef}/>
       <main className="drive-content">
         {/* ---------------- HEADER ---------------- */}
         <header className="drive-header">

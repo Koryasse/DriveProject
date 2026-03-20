@@ -18,7 +18,7 @@ function Sidebar({ openFilePicker, fileInputRef, handleUpload }) {
     try {
       const res = await fetch("http://10.5.40.95:8000/api/storage");
       const data = await res.json();
-      setStorage(data);
+      onStorageUpdate(data);
     } catch (err) {
       console.error("Erreur storage:", err);
     }
