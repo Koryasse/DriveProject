@@ -6,7 +6,6 @@ from datetime import datetime
 
 app = FastAPI()
 
-# Autoriser le frontend React
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,6 +17,29 @@ app.add_middleware(
 STORAGE_FOLDER = "storage"
 os.makedirs(STORAGE_FOLDER, exist_ok=True)
 
+# ----------------- Mapping des types -----------------
+def get_file_type(filename):
+    ext = filename.split(".")[-1].lower() if "." in filename else "other"
+    mapping = {
+        "pdf":  "pdf",
+        "doc":  "doc",  "docx": "doc",
+        "xls":  "sheet","xlsx": "sheet",
+        "ppt":  "ppt",  "pptx": "ppt",
+        "txt":  "txt",
+        "jpg":  "image","jpeg": "image",
+        "png":  "image","gif":  "image",
+        "svg":  "image","webp": "image",
+        "mp4":  "video","mov":  "video",
+        "avi":  "video","mkv":  "video",
+        "mp3":  "audio","wav":  "audio","ogg": "audio",
+        "zip":  "archive","rar": "archive",
+        "tar":  "archive","gz":  "archive",
+        "js":   "code",  "ts":   "code",
+        "py":   "code",  "html": "code",
+        "css":  "code",  "json": "code",
+    }
+    return mapping.get(ext, "other")
+
 # ----------------- Liste des fichiers -----------------
 @app.get("/api/files")
 def get_files():
@@ -28,7 +50,7 @@ def get_files():
         files.append({
             "id": i,
             "name": filename,
-            "type": filename.split(".")[-1],
+            "type": get_file_type(filename),
             "date": datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%d")
         })
     return files
@@ -73,7 +95,7 @@ def download_file(filename: str):
 # ----------------- Stockage -----------------
 @app.get("/api/storage")
 def get_storage():
-    total_storage = 10 * 1024 ** 3  # 10 Go
+    total_storage = 10 * 1024 ** 3
     used_bytes = sum(
         os.path.getsize(os.path.join(STORAGE_FOLDER, f))
         for f in os.listdir(STORAGE_FOLDER)
@@ -81,9 +103,8 @@ def get_storage():
     used_gb = used_bytes / (1024 ** 3)
     total_gb = total_storage / (1024 ** 3)
     percent = (used_bytes / total_storage) * 100
-
     return {
-        "used_gb": round(used_gb, 2),
+        "used_gb": round(used_gb, 4),
         "total_gb": total_gb,
         "percent": round(percent, 2)
     }

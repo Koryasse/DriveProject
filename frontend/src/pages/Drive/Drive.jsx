@@ -222,11 +222,19 @@ function Drive() {
           <div className="drive-filters">
             <div className="filter-box">
               <img src={FileIcon} alt="type" />
-              <select value={filterType} onChange={e => setFilterType(e.target.value)} >
+              <select value={filterType} onChange={e => setFilterType(e.target.value)}>
                 <option value="all">All types</option>
-                <option value="doc">Documents</option>
+                <option value="pdf">PDF</option>
+                <option value="doc">Word</option>
+                <option value="sheet">Excel</option>
+                <option value="ppt">PowerPoint</option>
+                <option value="txt">Texte</option>
                 <option value="image">Images</option>
-                <option value="ppt">Presentations</option>
+                <option value="video">Vidéos</option>
+                <option value="audio">Audio</option>
+                <option value="archive">Archives</option>
+                <option value="code">Code</option>
+                <option value="other">Autres</option>
               </select>
             </div>
             <div className="filter-box">
