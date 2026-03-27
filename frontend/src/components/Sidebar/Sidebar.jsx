@@ -47,7 +47,7 @@ function Sidebar({ openFilePicker, fileInputRef, handleUpload, storage }) {
         <div className="storage-box">
           <div className="storage-header">
             <img src={CloudIcon} alt="cloud" />
-            <span>Espace de stockage</span>
+            <span>Storage space</span>
           </div>
           <div className="storage-bar">
             <div
