@@ -73,7 +73,7 @@ def download_file(filename: str):
 # ----------------- Stockage -----------------
 @app.get("/api/storage")
 def get_storage():
-    total_storage = 10 * 1024 ** 3  # 10 Go en octets
+    total_storage = 10 * 1024 ** 3  # 10 Go
     used_bytes = sum(
         os.path.getsize(os.path.join(STORAGE_FOLDER, f))
         for f in os.listdir(STORAGE_FOLDER)
