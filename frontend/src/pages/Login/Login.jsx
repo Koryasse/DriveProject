@@ -31,7 +31,7 @@ function Login() {
       if (response.ok) {
         navigate('/dashboard')
       } else {
-        setError(data.message || 'Login failed')
+        setError(data.detail || 'Login failed')
       }
     } catch (err) {
       console.error(err)
