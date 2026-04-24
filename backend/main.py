@@ -5,12 +5,16 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 import os, shutil
 from datetime import datetime
+from pathlib import Path
 
 # ---------------- ENV ----------------
-load_dotenv(dotenv_path=".env")
+load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 
 DEFAULT_EMAIL = os.getenv("DEFAULT_USER_EMAIL")
 DEFAULT_PASSWORD = os.getenv("DEFAULT_USER_PASSWORD")
+
+print("EMAIL ENV:", DEFAULT_EMAIL)
+print("PASSWORD ENV:", DEFAULT_PASSWORD)
 
 # ---------------- APP ----------------
 app = FastAPI()
