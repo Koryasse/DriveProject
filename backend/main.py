@@ -7,7 +7,7 @@ import os, shutil
 from datetime import datetime
 
 # ---------------- ENV ----------------
-load_dotenv()
+load_dotenv(dotenv_path=".env")
 
 DEFAULT_EMAIL = os.getenv("DEFAULT_USER_EMAIL")
 DEFAULT_PASSWORD = os.getenv("DEFAULT_USER_PASSWORD")
@@ -17,7 +17,9 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://10.5.40.250:5173"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

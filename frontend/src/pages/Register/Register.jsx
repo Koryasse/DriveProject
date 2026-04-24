@@ -6,7 +6,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch("http://localhost:8000/register", {
+    await fetch("http://10.5.40.250:8000/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

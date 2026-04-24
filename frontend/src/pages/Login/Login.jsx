@@ -19,7 +19,7 @@ function Login() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/login", {
+      const response = await fetch("http://10.5.40.250:8000/login", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
