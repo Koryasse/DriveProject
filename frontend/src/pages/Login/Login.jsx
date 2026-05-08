@@ -25,7 +25,7 @@ function Login() {
 
       if (response.ok) {
         saveAuth(data.token, data.user)
-        navigate('/dashboard')
+        navigate('/drive')
       } else {
         setError(data.detail || 'Login failed')
       }

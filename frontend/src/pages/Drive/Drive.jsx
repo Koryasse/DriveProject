@@ -193,11 +193,14 @@ function Drive() {
   return (
 
     <div className="drive-layout">
-      <Sidebar openFilePicker={openFilePicker} fileInputRef={fileInputRef} handleUpload={handleUpload} storage={storage}/>
+      <Sidebar openFilePicker={openFilePicker} fileInputRef={fileInputRef} handleUpload={handleUpload} storage={storage} />
       <main className="drive-content">
         {/* ---------------- HEADER ---------------- */}
         <header className="drive-header">
-          <h2>Welcome to Nebula</h2>
+          <div>
+            <h2>Welcome to Nebula</h2>
+            <button>Logout</button>
+          </div>
           <div className="search-bar">
             <img src={SearchIcon} alt="search" />
             <input
@@ -275,9 +278,9 @@ function Drive() {
                               const nameWithoutExt =
                                 file.name.includes(".")
                                   ? file.name.substring(
-                                      0,
-                                      file.name.lastIndexOf(".")
-                                    )
+                                    0,
+                                    file.name.lastIndexOf(".")
+                                  )
                                   : file.name;
 
                               setModal({
