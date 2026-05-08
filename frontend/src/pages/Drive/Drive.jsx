@@ -9,6 +9,7 @@ import SearchIcon from '../../assets/img/icons/search.svg';
 import DateIcon from '../../assets/img/icons/date.svg';
 
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
+import { api } from '../../utils/api.js';
 
 const STEP = 5;
 
@@ -32,7 +33,7 @@ function Drive() {
 
   const fetchStorage = async () => {
     try {
-      const res = await fetch("http://10.5.40.250:8000/api/storage");
+      const res = await api.getStorage();
       const data = await res.json();
       setStorage(data);
     } catch (err) {
@@ -51,7 +52,7 @@ function Drive() {
       setLoading(true);
       setError(null);
 
-      const res = await fetch("http://10.5.40.250:8000/api/files");
+      const res = await api.getFiles();
 
       if (!res.ok) throw new Error("Unable to fetch files");
 
@@ -100,10 +101,7 @@ function Drive() {
       const formData = new FormData();
       formData.append("file", uploadedFiles[i]);
 
-      await fetch("http://10.5.40.250:8000/api/upload", {
-        method: "POST",
-        body: formData
-      });
+      await api.upload(formData);
     }
 
     fetchStorage();
@@ -116,10 +114,7 @@ function Drive() {
 
     if (!modal.file) return;
 
-    await fetch(
-      `http://10.5.40.250:8000/api/files/${modal.file.name}`,
-      { method: "DELETE" }
-    );
+    await api.delete(modal.file.name);
 
     setModal({ type: null, file: null, value: '' });
 
@@ -141,10 +136,7 @@ function Drive() {
 
     const newName = modal.value + ext;
 
-    await fetch(
-      `http://10.5.40.250:8000/api/files/rename?old_name=${originalName}&new_name=${newName}`,
-      { method: "PUT" }
-    );
+    await api.rename(originalName, newName);
 
     setModal({ type: null, file: null, value: '' });
 
@@ -154,11 +146,7 @@ function Drive() {
   // ---------------- DOWNLOAD ----------------
 
   const handleDownload = (file) => {
-
-    window.open(
-      `http://10.5.40.250:8000/api/files/download/${file.name}`,
-      "_blank"
-    );
+    api.download(file.name);
   };
 
   // ---------------- FILTER ----------------

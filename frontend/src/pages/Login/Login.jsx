@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../assets/img/nebulaLogo/nebulaBlack.svg'
+import { api, saveAuth } from '../../utils/api'
 import './Login.css'
 
 function Login() {
@@ -19,22 +20,16 @@ function Login() {
     }
 
     try {
-      const response = await fetch("http://10.5.40.250:8000/login", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      })
-
+      const response = await api.login(email, password)
       const data = await response.json()
 
       if (response.ok) {
+        saveAuth(data.token, data.user)
         navigate('/dashboard')
       } else {
         setError(data.detail || 'Login failed')
       }
     } catch (err) {
-      console.error(err)
       setError('Server error, try again later')
     }
   }
@@ -48,23 +43,15 @@ function Login() {
             <h2>Welcome back</h2>
           </div>
           <form onSubmit={handleLogin}>
-            <input 
-              type="email" 
-              placeholder="Enter email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input 
-              type="password" 
-              placeholder='Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <input type="email" placeholder="Enter email address"
+              value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder='Password'
+              value={password} onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Continue</button>
             {error && <p className="login-error">{error}</p>}
           </form>
           <div>
-            <p>By continuing, you agree to our 
+            <p>By continuing, you agree to our
               <Link to="/terms"> Terms </Link>
               and <Link to="/privacy">Privacy policy</Link>.
             </p>
