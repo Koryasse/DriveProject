@@ -65,13 +65,22 @@ export const api = {
     download: async (filename) => {
         const token = localStorage.getItem("token");
 
+        console.log("Token:", token);
+        console.log("URL:", `${BASE_URL}/api/files/download/${filename}`);
+
         const res = await fetch(`${BASE_URL}/api/files/download/${filename}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
 
-        if (!res.ok) return;
+        console.log("Status:", res.status);
+
+        if (!res.ok) {
+            const err = await res.json();
+            console.log("Erreur:", err);
+            return;
+        }
 
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
