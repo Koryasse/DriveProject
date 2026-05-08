@@ -1,8 +1,13 @@
 import { Navigate } from 'react-router-dom'
-import { isLoggedIn } from '../../utils/api'
 
 function ProtectedRoute({ children }) {
-  return isLoggedIn() ? children : <Navigate to="/" replace />
+  const token = localStorage.getItem("token")
+
+  if (!token) {
+    return <Navigate to="/" replace />
+  }
+
+  return children
 }
 
 export default ProtectedRoute
